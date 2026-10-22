@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Notice — 0node</title>
+  <meta name="description" content="0node privacy notice — what we store, why, who has access, your rights under GDPR.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://0node.io/privacy.html">
+  <link rel="icon" href="/logo.ico" type="image/x-icon">
+  <meta name="theme-color" content="#3b82f6">
+  <meta property="og:title" content="Privacy Notice — 0node">
+  <meta property="og:description" content="What 0node stores, why, and your rights under GDPR.">
+  <meta property="og:url" content="https://0node.io/privacy.html">
+  <meta property="og:image" content="https://0node.io/logo.png">
+  <meta property="og:type" content="article">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #050a14;
+      color: #f1f5f9;
+      min-height: 100vh;
+      line-height: 1.65;
+      padding: 32px 20px 60px;
+    }
+    a { color: #60a5fa; }
+    a:hover { color: #93c5fd; }
+    .gradient-text {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .legal-wrap { max-width: 760px; margin: 0 auto; }
+    header.legal-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 36px; padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    header.legal-nav .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: inherit; font-weight: 700;
+    }
+    header.legal-nav .logo img { width: 36px; height: 36px; }
+    header.legal-nav a.back {
+      font-size: 0.85rem; text-decoration: none; padding: 6px 14px;
+      border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1); color: #cbd5e1;
+    }
+    header.legal-nav a.back:hover { border-color: #3b82f6; color: #93c5fd; }
+    h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .updated { font-size: 0.8rem; color: #64748b; margin-bottom: 28px; }
+    section.card {
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px; padding: 22px 24px; margin-bottom: 18px;
+    }
+    section.card h2 {
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: #f1f5f9;
+    }
+    section.card h2::before {
+      content: ''; display: inline-block; width: 6px; height: 6px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 50%; vertical-align: 4px; margin-right: 10px;
+    }
+    section.card p, section.card li {
+      color: #cbd5e1; font-size: 0.92rem; margin-bottom: 8px;
+    }
+    section.card ul { padding-left: 22px; }
+    section.card code {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 1px 6px; border-radius: 4px;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+      font-size: 0.85em; color: #f1f5f9;
+    }
+    table.storage {
+      width: 100%; font-size: 0.85rem; border-collapse: collapse; margin-top: 8px;
+    }
+    table.storage th, table.storage td {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 10px; text-align: left;
+    }
+    table.storage th { background: rgba(59, 130, 246, 0.08); color: #f1f5f9; font-weight: 600; }
+    table.storage td { color: #cbd5e1; }
+    .storage-note { margin-top: 14px; }
+    footer.legal-foot {
+      margin-top: 36px; padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.78rem; color: #64748b;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    footer.legal-foot a { color: #94a3b8; text-decoration: none; }
+    footer.legal-foot a:hover { color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <div class="legal-wrap">
+    <header class="legal-nav">
+      <a href="/" class="logo">
+        <img src="/logo.svg" alt="0node">
+        <span>0node</span>
+      </a>
+      <a href="/" class="back">← Back to home</a>
+    </header>
+
+    <h1><span class="gradient-text">Privacy Notice</span></h1>
+    <p class="updated">Last updated: October 21, 2026 &middot; GDPR / EU 2016/679</p>
+
+    <section class="card">
+      <h2>Summary</h2>
+      <p>
+        0node is a static, client-side staking interface for the Solana
+        blockchain. We do not run a backend, do not operate analytics, do
+        not set cookies, do not show ads, and do not sell anything. We
+        cannot identify you and do not try to.
+      </p>
+      <p>
+        The information below documents what your browser temporarily stores
+        on your own device to make the page work, and the unavoidable network
+        requests your browser makes to public Solana infrastructure.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Data controller</h2>
+      <p>
+        Controller for the purposes of GDPR Article 4(7):
+        the operator of the 0node validator. Contact:
+        <a href="mailto:support@0node.io">support@0node.io</a>.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Non-custodial architecture</h2>
+      <p>
+        Custody never changes hands when you use this site. Your wallet
+        extension holds the only copy of your seed phrase and private key,
+        and they stay inside that extension's isolated context. The page
+        never reads them, the page never receives them, and there is no
+        server we could exfiltrate them to.
+      </p>
+      <p>
+        Every action you take — connecting, delegating, splitting,
+        merging, deactivating, withdrawing — is constructed as a Solana
+        transaction in your browser, handed to your wallet for signature,
+        and broadcast as raw bytes to a Solana RPC. We cannot pre-approve
+        anything on your behalf, we cannot reverse a transaction once it's
+        signed, and we cannot move funds to a destination you did not
+        approve in the wallet popup.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Data we do not collect</h2>
+      <p>
+        Because the site has no backend and no analytics layer, the
+        following categories of data are never collected, transmitted, or
+        stored by us:
+      </p>
+      <ul>
+        <li>Names, emails, phone numbers, postal addresses, or any other
+            traditional personal identifiers.</li>
+        <li>Wallet private keys, seed phrases, BIP39 mnemonics, hardware
+            wallet PINs, or wallet passwords.</li>
+        <li>Cookies, including session cookies, third-party cookies, and
+            tracking pixels.</li>
+        <li>Behavioural analytics or session replay — no Google Analytics,
+            Meta Pixel, Plausible, Mixpanel, Amplitude, Sentry, Hotjar,
+            FullStory, or comparable service is loaded by the page.</li>
+        <li>Device fingerprints, advertising IDs, or browser-canvas hashes.</li>
+        <li>Geolocation. We do not request the Geolocation API and
+            <code>Permissions-Policy</code> on this site explicitly disables
+            it.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>What we store on your device</h2>
+      <p>
+        The site uses your browser's <code>localStorage</code> for
+        functional state only. No third party can read these entries — they
+        are scoped to <code>0node.io</code>.
+      </p>
+      <table class="storage">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Purpose</th>
+            <th>Retention</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>0node-custom-rpc</code></td>
+            <td>Optional user-set custom RPC endpoint URL.</td>
+            <td>Until you click Reset or clear browser data.</td>
+          </tr>
+          <tr>
+            <td><code>0node-wallet-disconnected</code></td>
+            <td>Remembers that you explicitly disconnected, so we don't auto-reconnect on refresh.</td>
+            <td>Until you connect a wallet again or clear browser data.</td>
+          </tr>
+          <tr>
+            <td><code>0node-pending-redelegations</code></td>
+            <td>Saves the validator you selected between the deactivation and delegation steps of a redelegation.</td>
+            <td>Until you complete or cancel the redelegation, withdraw the stake, or clear browser data.</td>
+          </tr>
+          <tr>
+            <td><code>0node-validator-meta</code></td>
+            <td>Cached on-chain validator names and our own validator's logo, so subsequent visits load instantly.</td>
+            <td>Up to 7 days per entry.</td>
+          </tr>
+          <tr>
+            <td><code>0node_validator_stats</code></td>
+            <td>Cached performance metrics from a public Solana indexer.</td>
+            <td>5 minutes; data is fetched again afterwards.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="storage-note">
+        None of these entries identify you. To delete them at any time, open
+        your browser's site settings for 0node.io and clear site data, or
+        open DevTools → Application → Local Storage and remove the entries
+        individually.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Information your browser sends to third parties</h2>
+      <p>
+        Loading and using the page causes your browser to make HTTPS
+        requests to the following third parties. We never see these
+        requests; they leave your browser directly.
+      </p>
+      <ul>
+        <li>
+          <strong>Solana RPC endpoints</strong> — public Solana nodes used
+          to read on-chain data and broadcast signed transactions. The
+          default endpoints are
+          <code>solana.api.pocket.network</code> and
+          <code>public.rpc.solanavibestation.com</code> on mainnet, and
+          <code>api.testnet.solana.com</code> on testnet.
+          A custom RPC, if you set one, replaces this list.
+        </li>
+        <li>
+          <strong>api.stakewiz.com</strong> — a public Solana validator
+          indexer. Used to display our validator's APY and performance
+          metrics on the landing page. Names and icons in the staking
+          interface are read from the Solana network directly and do not
+          involve Stakewiz.
+        </li>
+        <li>
+          <strong>Netlify</strong> — hosts this site. Like any web host,
+          Netlify temporarily logs request metadata (IP, user agent,
+          timestamp) for abuse prevention. We do not access these logs and
+          they are not joined with any other dataset.
+        </li>
+      </ul>
+      <p>
+        We do not embed any social-media pixels, ad networks, fingerprinting
+        scripts, session replay services, or behavioural analytics. There is
+        no Google Analytics, Facebook Pixel, Mixpanel, Sentry, Hotjar, or
+        comparable tool on this site.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Wallet integration</h2>
+      <p>
+        Connecting a wallet hands this page a single read-only piece of
+        information: your public address. That address is by design part
+        of the public Solana ledger and tells anyone with an RPC node
+        which stake accounts you control. We use it for exactly that
+        purpose: querying your stakes and pre-filling transaction
+        builders. It is never persisted on a server (we have none), and
+        it is forwarded only to the Solana RPC endpoints listed above.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Verifiability</h2>
+      <p>
+        The frontend is open source — the repository is at
+        <a href="https://github.com/NEWSOROS/0node-io" target="_blank" rel="noopener">github.com/NEWSOROS/0node-io</a>
+        and the production build is reproducible from that source tree
+        using Bun and Vite. Whatever this Privacy Notice claims about
+        data flows, you can confirm directly in the code.
+      </p>
+      <p>
+        The compiled JavaScript shipped to your browser is publicly
+        readable through DevTools (Sources tab). Any out-of-band request
+        the page made would be visible in the Network tab. We commit to
+        keeping the bundle's network behaviour faithful to the third-party
+        list documented above.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Legal basis</h2>
+      <p>
+        Where applicable under GDPR Article 6(1):
+      </p>
+      <ul>
+        <li>
+          <strong>Article 6(1)(b)</strong> — performance of the
+          quasi-contract you enter into by using the staking interface, for
+          the strictly necessary functional storage above.
+        </li>
+        <li>
+          <strong>Article 6(1)(f)</strong> — legitimate interest in
+          operating a secure, reliable validator interface, for the third-
+          party requests required to read public blockchain state.
+        </li>
+      </ul>
+      <p>
+        We rely on no consent-based processing because we do no
+        analytics, advertising, or profiling.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Your rights</h2>
+      <p>
+        Under the GDPR you have the right to access, rectify, erase, or
+        restrict any personal data we hold about you, to object to
+        processing, and to data portability. In practice we hold no
+        personal data about you — there is nothing to access, export, or
+        delete on our side. You can erase the locally-stored functional
+        data yourself at any time as described above.
+      </p>
+      <p>
+        Questions or requests can still be sent to
+        <a href="mailto:support@0node.io">support@0node.io</a>; we will
+        respond within one month as required by GDPR Article 12(3).
+      </p>
+      <p>
+        If you believe we are not respecting your rights, you can lodge a
+        complaint with your national supervisory authority. A list is
+        available at
+        <a href="https://edpb.europa.eu/about-edpb/about-edpb/members_en" target="_blank" rel="noopener">edpb.europa.eu</a>.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Changes</h2>
+      <p>
+        If we materially change our data practices, we will update the
+        date at the top of this page and, where the change affects
+        previously-stored data, ship a banner on the main interface.
+      </p>
+    </section>
+
+    <footer class="legal-foot">
+      <span>&copy; 2026 0node. All rights reserved.</span>
+      <span>
+        <a href="/security.html">Security</a> &middot;
+        <a href="/terms.html">Terms</a> &middot;
+        <a href="/imprint.html">Imprint</a> &middot;
+        <a href="/">Home</a>
+      </span>
+    </footer>
+  </div>
+</body>
+</html>

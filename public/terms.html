@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Use — 0node</title>
+  <meta name="description" content="Terms of Use for the 0node staking interface — non-custodial, no warranty, jurisdiction.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://0node.io/terms.html">
+  <link rel="icon" href="/logo.ico" type="image/x-icon">
+  <meta name="theme-color" content="#3b82f6">
+  <meta property="og:title" content="Terms of Use — 0node">
+  <meta property="og:description" content="Terms governing your use of the 0node staking interface.">
+  <meta property="og:url" content="https://0node.io/terms.html">
+  <meta property="og:image" content="https://0node.io/logo.png">
+  <meta property="og:type" content="article">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #050a14; color: #f1f5f9; min-height: 100vh; line-height: 1.65;
+      padding: 32px 20px 60px;
+    }
+    a { color: #60a5fa; }
+    a:hover { color: #93c5fd; }
+    .gradient-text {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .legal-wrap { max-width: 760px; margin: 0 auto; }
+    header.legal-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 36px; padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    header.legal-nav .logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: inherit; font-weight: 700;
+    }
+    header.legal-nav .logo img { width: 36px; height: 36px; }
+    header.legal-nav a.back {
+      font-size: 0.85rem; text-decoration: none; padding: 6px 14px;
+      border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1); color: #cbd5e1;
+    }
+    header.legal-nav a.back:hover { border-color: #3b82f6; color: #93c5fd; }
+    h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .updated { font-size: 0.8rem; color: #64748b; margin-bottom: 28px; }
+    section.card {
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px; padding: 22px 24px; margin-bottom: 18px;
+    }
+    section.card h2 {
+      font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: #f1f5f9;
+    }
+    section.card h2::before {
+      content: ''; display: inline-block; width: 6px; height: 6px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 50%; vertical-align: 4px; margin-right: 10px;
+    }
+    section.card p, section.card li {
+      color: #cbd5e1; font-size: 0.92rem; margin-bottom: 8px;
+    }
+    section.card ul { padding-left: 22px; }
+    footer.legal-foot {
+      margin-top: 36px; padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.78rem; color: #64748b;
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    footer.legal-foot a { color: #94a3b8; text-decoration: none; }
+    footer.legal-foot a:hover { color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <div class="legal-wrap">
+    <header class="legal-nav">
+      <a href="/" class="logo">
+        <img src="/logo.svg" alt="0node">
+        <span>0node</span>
+      </a>
+      <a href="/" class="back">← Back to home</a>
+    </header>
+
+    <h1><span class="gradient-text">Terms of Use</span></h1>
+    <p class="updated">Last updated: April 22, 2026</p>
+
+    <section class="card">
+      <h2>The service</h2>
+      <p>
+        0node.io is a non-custodial web interface to Solana's native stake
+        program. It lets you delegate SOL from your own wallet to the
+        0node validator (or, optionally, to any other Solana validator)
+        and manage the resulting stake accounts.
+      </p>
+      <p>
+        We do not custody, hold, lend, or rehypothecate user funds. Every
+        transaction is built locally in your browser and signed inside
+        your own wallet. Your private key never reaches us.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Eligibility</h2>
+      <p>
+        You may use the site only where doing so is lawful in your
+        jurisdiction. You are responsible for determining that. The site
+        is not directed to users in any jurisdiction where staking,
+        cryptocurrency holding, or interaction with public blockchains is
+        prohibited or restricted, including persons or entities subject
+        to economic sanctions.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Validator commission</h2>
+      <p>
+        The 0node validator currently charges a 5% commission on
+        staking rewards, plus its share of Jito MEV tips per the validator
+        configuration on-chain. Commission is set in the validator's
+        on-chain vote account and may change with on-chain notice. You can
+        always verify the current value via any Solana explorer.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>No advice, no guarantees</h2>
+      <p>
+        Nothing on this site is financial, investment, tax, or legal
+        advice. APY figures shown are estimates derived from past epochs
+        and are not a guarantee of future returns. Validator performance,
+        Solana network parameters, and rewards rates change over time.
+      </p>
+      <p>
+        Risks of staking include but are not limited to: temporary
+        illiquidity during deactivation cool-down, validator delinquency
+        or slashing as defined by Solana, network outages, smart-contract
+        or client bugs, and price volatility of the SOL token.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>User responsibilities</h2>
+      <ul>
+        <li>Keep your wallet's seed phrase secret. Anyone with it can
+            move your funds — we cannot help recover them.</li>
+        <li>Verify every transaction in your wallet before signing.
+            Approval is final.</li>
+        <li>If you set a custom RPC endpoint, you are trusting that
+            endpoint with your queries. A hostile endpoint can lie about
+            on-chain state; we display a warning.</li>
+        <li>Do not attempt to circumvent the site's security controls or
+            probe other users' wallets.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Intellectual property</h2>
+      <p>
+        The 0node name, logo, and visual identity are property of the
+        operator. The frontend source code is published on
+        <a href="https://github.com/NEWSOROS/0node-io" target="_blank" rel="noopener">GitHub</a>
+        and is licensed as described in the repository. Underlying
+        Solana stake program instructions and on-chain data are public
+        and not owned by anyone.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Disclaimer of warranties</h2>
+      <p>
+        The site is provided <strong>"as is"</strong> and <strong>"as
+        available"</strong> without warranty of any kind, express or
+        implied. To the maximum extent permitted by applicable law, we
+        disclaim all warranties of merchantability, fitness for a
+        particular purpose, accuracy, and non-infringement. We do not
+        warrant that the site will be uninterrupted, error-free, or free
+        of harmful components.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Limitation of liability</h2>
+      <p>
+        To the maximum extent permitted by applicable law, we are not
+        liable for indirect, incidental, consequential, special, or
+        punitive damages, or for any loss of profits, revenue, data, or
+        opportunity arising from or related to your use of the site,
+        including losses caused by Solana network conditions, wallet
+        software, third-party RPC providers, or your own actions.
+      </p>
+      <p>
+        These limitations do not apply to liability that cannot be
+        excluded under mandatory consumer-protection law in your
+        jurisdiction.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Changes</h2>
+      <p>
+        We may update these terms from time to time. Material changes
+        will be noted by updating the date above and, where relevant, by
+        a banner on the main interface. Continued use after a change
+        constitutes acceptance.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Governing law</h2>
+      <p>
+        Unless otherwise required by mandatory law in your jurisdiction,
+        these terms are governed by the laws applicable where the
+        operator is established, without regard to conflict-of-law
+        principles. Mandatory consumer-protection rights of EU residents
+        remain unaffected.
+      </p>
+    </section>
+
+    <footer class="legal-foot">
+      <span>&copy; 2026 0node. All rights reserved.</span>
+      <span>
+        <a href="/security.html">Security</a> &middot;
+        <a href="/privacy.html">Privacy</a> &middot;
+        <a href="/imprint.html">Imprint</a> &middot;
+        <a href="/">Home</a>
+      </span>
+    </footer>
+  </div>
+</body>
+</html>

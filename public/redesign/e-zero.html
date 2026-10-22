@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0node — Concept E · Чисто 0</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0b0b0b;
+      --fg: #fafafa;
+      --muted: #71717a;
+      --line: #1f1f1f;
+      --line-hi: #2d2d2d;
+      --accent: #00f5d4;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, 'Inter', 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 40px;
+      mix-blend-mode: difference;
+    }
+    nav .logo {
+      font-weight: 700; letter-spacing: -0.02em; font-size: 1rem;
+      color: #fff;
+    }
+    nav .meta {
+      font-size: 0.78rem; color: #fff;
+      font-feature-settings: "tnum";
+    }
+    nav a {
+      color: #fff; text-decoration: none; font-size: 0.78rem;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 2px;
+    }
+    nav a:hover { border-bottom-color: #fff; }
+
+    /* Hero — split layout with massive "0" */
+    main { padding-top: 80px; }
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 40px;
+    }
+    .hero .text {
+      max-width: 480px;
+      padding-right: 40px;
+    }
+    .hero .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 32px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .hero .eyebrow::after {
+      content: ''; flex: 1; height: 1px; background: var(--line-hi);
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-weight: 600;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      margin-bottom: 28px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: flex; gap: 24px; align-items: center;
+    }
+    .hero-cta a.primary {
+      color: var(--bg);
+      background: var(--accent);
+      padding: 14px 32px;
+      font-weight: 600; font-size: 0.92rem;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: all 0.15s;
+      letter-spacing: 0.01em;
+    }
+    .hero-cta a.primary:hover {
+      background: #fff;
+      transform: translateY(-1px);
+    }
+    .hero-cta a.secondary {
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 0.88rem;
+      border-bottom: 1px solid var(--muted);
+      padding-bottom: 2px;
+      transition: all 0.15s;
+    }
+    .hero-cta a.secondary:hover {
+      border-bottom-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .hero .visual {
+      position: relative;
+      height: 80vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .zero-svg {
+      width: 100%; height: 100%; max-width: 720px;
+    }
+    .zero-svg text {
+      font-family: 'Inter', -apple-system, sans-serif;
+      font-weight: 100;
+      font-size: 720px;
+      letter-spacing: -0.05em;
+      fill: none;
+      stroke: var(--fg);
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+    }
+    .zero-svg text.accent {
+      stroke: var(--accent);
+      animation: trace 4s ease-in-out infinite alternate;
+      stroke-dasharray: 1500;
+    }
+    @keyframes trace {
+      0%   { stroke-dashoffset: 1500; opacity: 0.4; }
+      50%  { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: -1500; opacity: 0.4; }
+    }
+    .zero-svg .crosshair {
+      stroke: var(--line-hi);
+      stroke-width: 1;
+      stroke-dasharray: 4 4;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 60px; }
+      .hero .visual { height: 50vh; }
+      .hero .text { padding-right: 0; }
+    }
+
+    /* Data section */
+    .data {
+      border-top: 1px solid var(--line);
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .data h2 {
+      font-size: 0.78rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .data table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .data table th, .data table td {
+      text-align: left;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      font-variant-numeric: tabular-nums;
+    }
+    .data table th {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .data table tr:hover td { color: var(--accent); }
+    .data table td:first-child { color: var(--muted); width: 30%; }
+    .data table td:nth-child(2) { font-size: 1.8rem; font-weight: 200; letter-spacing: -0.02em; }
+    .data table td:nth-child(3) { color: var(--muted); font-size: 0.85rem; }
+
+    .data .footnote {
+      margin-top: 40px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      max-width: 560px;
+    }
+
+    /* Bottom band */
+    .band {
+      border-top: 1px solid var(--line);
+      padding: 80px 40px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+    @media (max-width: 720px) {
+      .band { grid-template-columns: 1fr; gap: 40px; }
+    }
+    .band h3 {
+      font-size: 1.4rem; font-weight: 500;
+      margin-bottom: 14px; letter-spacing: -0.02em;
+    }
+    .band p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
+    .band a.arrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--accent); text-decoration: none;
+      margin-top: 18px;
+      font-size: 0.88rem;
+    }
+    .band a.arrow:hover { gap: 14px; }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 32px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+    footer .links { display: flex; gap: 24px; flex-wrap: wrap; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--fg); }
+  </style>
+</head>
+<body>
+  <nav>
+    <span class="logo">0node</span>
+    <span class="meta">EPOCH 962 · 100% UPTIME</span>
+    <a href="./index.html">← All concepts</a>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="text">
+        <div class="eyebrow">Solana validator · since 2026</div>
+        <h1>
+          Zero middlemen.<br>
+          Zero wrapper tokens.<br>
+          <em>5% commission.</em>
+        </h1>
+        <p>
+          A non-custodial interface to Solana's native stake program.
+          You hold the keys. You hold the stake account. We hold the slot
+          and run the validator.
+        </p>
+        <div class="hero-cta">
+          <a href="#" class="primary">Delegate SOL</a>
+          <a href="#" class="secondary">View on Solscan →</a>
+        </div>
+      </div>
+      <div class="visual">
+        <svg class="zero-svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet">
+          <line class="crosshair" x1="0" y1="400" x2="800" y2="400" />
+          <line class="crosshair" x1="400" y1="0" x2="400" y2="800" />
+          <text x="400" y="560" text-anchor="middle">0</text>
+          <text x="400" y="560" text-anchor="middle" class="accent">0</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="data">
+      <h2>Performance · current epoch</h2>
+      <table>
+        <thead>
+          <tr><th>Metric</th><th>Value</th><th>Source</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Total APY</td><td>5.79%</td><td>Stakewiz · validator info</td></tr>
+          <tr><td>Staking APY</td><td>5.68%</td><td>Inflation rewards, last epoch</td></tr>
+          <tr><td>Jito MEV APY</td><td>0.11%</td><td>Jito tip distribution</td></tr>
+          <tr><td>Commission</td><td>5.00%</td><td>On-chain vote account</td></tr>
+          <tr><td>Uptime</td><td>100.00%</td><td>Last 100 epochs</td></tr>
+          <tr><td>Vote success</td><td>99.37%</td><td>Vote credits / max credits</td></tr>
+          <tr><td>Skip rate</td><td>0.00%</td><td>Leader slots completed</td></tr>
+          <tr><td>Activated stake</td><td>374,852 SOL</td><td>getVoteAccounts</td></tr>
+        </tbody>
+      </table>
+      <p class="footnote">
+        Numbers fetched directly from public Solana RPC nodes. APYs are
+        epoch-derived estimates; past performance does not guarantee future
+        returns. Validator commission is set on-chain and visible to any
+        observer.
+      </p>
+    </section>
+
+    <section class="band">
+      <div>
+        <h3>Non-custodial by construction</h3>
+        <p>
+          Your wallet creates the stake account. Your wallet signs every
+          transaction. Your wallet is the only authority. We can't move
+          your funds, change your delegation, or freeze your account.
+          There is no contract between us — only the Solana protocol.
+        </p>
+        <a href="#" class="arrow">Read the security policy →</a>
+      </div>
+      <div>
+        <h3>Open and auditable</h3>
+        <p>
+          The frontend source is on GitHub. The validator's identity and
+          commission are visible on-chain. Builds are reproducible via
+          Bun + Vite. There are no closed components, no hidden fees, no
+          opaque rewards distribution. What you see is what runs.
+        </p>
+        <a href="#" class="arrow">Browse the source →</a>
+      </div>
+    </section>
+
+    <footer>
+      <span>&copy; 2026 0node</span>
+      <div class="links">
+        <a href="#">Security</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Imprint</a>
+        <a href="#">support@0node.io</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>

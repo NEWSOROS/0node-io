@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0node — Redesign Concepts</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, 'Segoe UI', sans-serif;
+      background: #050505;
+      color: #f5f5f5;
+      min-height: 100vh;
+      padding: 60px 24px;
+      line-height: 1.6;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; }
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .sub { color: #888; margin-bottom: 40px; font-size: 0.95rem; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+    }
+    a.concept {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      padding: 24px;
+      background: #0e0e0e;
+      border: 1px solid #1f1f1f;
+      border-radius: 14px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    a.concept::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent, linear-gradient(135deg, #3b82f6, #8b5cf6));
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    a.concept:hover {
+      border-color: #404040;
+      transform: translateY(-2px);
+    }
+    a.concept:hover::before { opacity: 0.04; }
+    .tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #1a1a1a;
+      color: #888;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+    .concept h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .concept p { color: #aaa; font-size: 0.9rem; }
+    .concept .stack {
+      margin-top: 14px;
+      font-size: 0.75rem;
+      color: #555;
+      font-family: 'SFMono-Regular', Consolas, monospace;
+    }
+    .a { --accent: linear-gradient(135deg, #a855f7, #22d3ee); }
+    .b { --accent: linear-gradient(135deg, #f472b6, #818cf8, #34d399); }
+    .c { --accent: linear-gradient(135deg, #4ade80, #1a1a1a); }
+    .d { --accent: linear-gradient(135deg, #60a5fa, #c084fc, #f472b6); }
+    .e { --accent: linear-gradient(135deg, #fafafa, #404040); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>0node redesign concepts</h1>
+    <p class="sub">Five visual directions, each a complete proof-of-concept landing page. Pick the one that feels right — we'll polish it and merge to prod.</p>
+    <div class="grid">
+      <a href="./a-grid.html" class="concept a">
+        <span class="tag">Concept A</span>
+        <h2>Solana grid</h2>
+        <p>Generative 3D-ish network of validator nodes pulsing in the background. Our node is the bright one. Tech-forward.</p>
+        <div class="stack">Canvas 2D · projection grid · pulse propagation</div>
+      </a>
+      <a href="./a-grid-v2.html" class="concept a">
+        <span class="tag">Concept A v2</span>
+        <h2>Geo-mapped leader stream</h2>
+        <p>Real-ish: dotted world map, validators at actual datacenter cities, camera follows leader, comet flies on every handoff, 4 pulses = 4 slots.</p>
+        <div class="stack">Canvas + topojson land · mercator · synthetic schedule</div>
+      </a>
+      <a href="./b-flow.html" class="concept b">
+        <span class="tag">Concept B</span>
+        <h2>MEV flow</h2>
+        <p>Particles flow through invisible curl-noise field. Visual metaphor for tips streaming from blocks into stakers.</p>
+        <div class="stack">Canvas particles · curl noise · gradient palette</div>
+      </a>
+      <a href="./c-terminal.html" class="concept c">
+        <span class="tag">Concept C</span>
+        <h2>Brutalist terminal</h2>
+        <p>Monospace, ASCII logo, phosphor glow, boot sequence intro. Hacker aesthetic, loads instantly.</p>
+        <div class="stack">Pure HTML/CSS · CRT scanlines · typewriter</div>
+      </a>
+      <a href="./d-liquid.html" class="concept d">
+        <span class="tag">Concept D</span>
+        <h2>Liquid premium</h2>
+        <p>Animated gradient mesh, glassmorphism, magnetic buttons, soft shadows. Stripe-grade polish.</p>
+        <div class="stack">CSS gradient mesh · backdrop-filter · spring</div>
+      </a>
+      <a href="./e-zero.html" class="concept e">
+        <span class="tag">Concept E</span>
+        <h2>Чисто "0"</h2>
+        <p>Огромный 0 как графический элемент композиции. Греyscale + один акцент. Linear.app / Vercel.</p>
+        <div class="stack">SVG typography · negative space · single accent</div>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

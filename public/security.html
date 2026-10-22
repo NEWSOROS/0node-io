@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security Policy — 0node</title>
+  <meta name="description" content="0node validator's security practices: non-custodial design, infrastructure, code, incident response, and contact for vulnerability disclosure.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://0node.io/security.html">
+  <link rel="icon" href="/logo.ico" type="image/x-icon">
+  <meta name="theme-color" content="#3b82f6">
+  <meta property="og:title" content="Security Policy — 0node">
+  <meta property="og:description" content="How 0node secures its validator, frontend, and your stake.">
+  <meta property="og:url" content="https://0node.io/security.html">
+  <meta property="og:image" content="https://0node.io/logo.png">
+  <meta property="og:type" content="article">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #050a14;
+      color: #f1f5f9;
+      min-height: 100vh;
+      line-height: 1.65;
+      padding: 32px 20px 60px;
+    }
+    a { color: #60a5fa; }
+    a:hover { color: #93c5fd; }
+    .gradient-text {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .legal-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    header.legal-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 36px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    header.legal-nav .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: inherit;
+      font-weight: 700;
+    }
+    header.legal-nav .logo img { width: 36px; height: 36px; }
+    header.legal-nav a.back {
+      font-size: 0.85rem;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+    }
+    header.legal-nav a.back:hover { border-color: #3b82f6; color: #93c5fd; }
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .updated {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-bottom: 28px;
+    }
+    section.card {
+      background: rgba(15, 23, 42, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
+    }
+    section.card h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #f1f5f9;
+    }
+    section.card h2::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 50%;
+      vertical-align: 4px;
+      margin-right: 10px;
+    }
+    section.card p, section.card li {
+      color: #cbd5e1;
+      font-size: 0.92rem;
+      margin-bottom: 8px;
+    }
+    section.card ul {
+      padding-left: 22px;
+    }
+    section.card code {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+      font-size: 0.85em;
+      color: #f1f5f9;
+    }
+    footer.legal-foot {
+      margin-top: 36px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.78rem;
+      color: #64748b;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer.legal-foot a { color: #94a3b8; text-decoration: none; }
+    footer.legal-foot a:hover { color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <div class="legal-wrap">
+    <header class="legal-nav">
+      <a href="/" class="logo">
+        <img src="/logo.svg" alt="0node">
+        <span>0node</span>
+      </a>
+      <a href="/" class="back">← Back to home</a>
+    </header>
+
+    <h1><span class="gradient-text">Security Policy</span></h1>
+    <p class="updated">Last updated: July 9, 2026</p>
+
+    <section class="card">
+      <h2>Non-custodial by design</h2>
+      <p>
+        0node is a delegation-only interface to Solana's native stake program.
+        It cannot move, custody, or freeze your funds. Every state-changing
+        action is a transaction that your wallet signs locally — we never
+        receive, store, or transmit your private key, seed phrase, or wallet
+        password.
+      </p>
+      <p>
+        Stake account authorities (staker + withdrawer) are set to your
+        wallet's address on creation. We are not on the authority list. If
+        you stop using this site, your stake accounts continue to operate
+        normally — anyone with a Solana CLI or compatible UI can manage them
+        with the same wallet.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Validator infrastructure</h2>
+      <ul>
+        <li>Bare-metal servers with enterprise-grade networking and disk redundancy.</li>
+        <li>SSH access is key-only — no passwords accepted on the validator host.</li>
+        <li>Identity keypair lives on the validator host only. It is not
+            present in this site's code, the source repository, or any
+            staging/build environment.</li>
+        <li>Validator client: Jito-Solana BAM, kept on the current stable
+            release with monitoring for vote credit anomalies.</li>
+        <li>Public observability: rank, vote success rate, skip rate, and
+            uptime are all visible on Stakewiz and other Solana explorers.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Frontend security</h2>
+      <ul>
+        <li>100% client-side application. No backend, no database, no
+            login, no analytics, no third-party trackers.</li>
+        <li>Strict Content-Security-Policy: <code>script-src 'self'</code>
+            with a sha256 allow-list for the single inline JSON-LD block,
+            no <code>'unsafe-inline'</code> or <code>'unsafe-eval'</code>.</li>
+        <li><code>frame-ancestors 'none'</code> prevents the site from being
+            embedded in an attacker-controlled iframe (clickjacking).</li>
+        <li>HSTS with <code>includeSubDomains</code> forces HTTPS for one year.</li>
+        <li>Referrer-Policy is <code>strict-origin-when-cross-origin</code>;
+            paths and query strings never leak to third parties.</li>
+        <li>Validator names and icons are read directly from the Solana
+            on-chain <code>validator-info</code> Config program. We do not
+            relay this through any third-party indexer.</li>
+        <li>Icons load only for the 0node validator; we never pull images
+            from arbitrary third-party servers based on on-chain pointers.</li>
+        <li>Persistent state is limited to functional localStorage entries
+            (custom-RPC URL, disconnect intent flag, pending redelegation target,
+            validator metadata and validator-metrics caches).
+            No cookies, no fingerprinting, no advertising IDs.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Code and dependencies</h2>
+      <ul>
+        <li>Source code is published on
+            <a href="https://github.com/NEWSOROS/0node-io" target="_blank" rel="noopener">GitHub</a>
+            so anyone can audit what runs in their browser.</li>
+        <li>Dependencies are pinned in <code>bun.lock</code>. Production
+            builds always use those exact versions; minor bumps are explicit
+            commits, not silent upgrades.</li>
+        <li>Routine <code>bun audit</code> checks. Transitive WebSocket-stack
+            advisories are tracked and shipped only when they affect code
+            paths we actually import.</li>
+        <li>Builds are reproducible (Vite + Bun) and deployed via Netlify.
+            Each release is an immutable, hash-named asset bundle.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Incident response</h2>
+      <p>
+        Suspected vulnerabilities or active incidents:
+        <a href="mailto:support@0node.io">support@0node.io</a>.
+        We commit to acknowledging the report within 48 hours.
+      </p>
+      <p>
+        Operational alerts and post-mortems are posted in our community
+        channels:
+        <a href="https://discord.com/invite/0nodeio" target="_blank" rel="noopener">Discord</a>
+        and
+        <a href="https://t.me/ZeroNodeSupport" target="_blank" rel="noopener">Telegram</a>.
+      </p>
+      <p>
+        Coordinated disclosure is appreciated. Please give us a reasonable
+        window to fix and ship before publication; in exchange we will credit
+        the reporter publicly if they wish.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Out of scope</h2>
+      <ul>
+        <li>Bugs in Solana itself, wallet extensions, or other validators —
+            report those to the respective project.</li>
+        <li>Cosmetic issues with no security impact.</li>
+        <li>Self-XSS that requires a user to paste hostile code into their
+            own browser console.</li>
+        <li>Findings only reproducible with a user-supplied malicious custom
+            RPC URL. We display a warning when this option is enabled and
+            consider trusting an unknown endpoint a user-side decision.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Compliance</h2>
+      <p>
+        The site is designed to align with GDPR data-minimization principles:
+        we do not collect personal data, do not set cookies, do not run
+        analytics, and only persist functional state in the visitor's own
+        localStorage. See the
+        <a href="/privacy.html">Privacy Notice</a> for the full breakdown.
+      </p>
+    </section>
+
+    <footer class="legal-foot">
+      <span>&copy; 2026 0node. All rights reserved.</span>
+      <span>
+        <a href="/privacy.html">Privacy</a> &middot;
+        <a href="/terms.html">Terms</a> &middot;
+        <a href="/imprint.html">Imprint</a> &middot;
+        <a href="/">Home</a>
+      </span>
+    </footer>
+  </div>
+</body>
+</html>

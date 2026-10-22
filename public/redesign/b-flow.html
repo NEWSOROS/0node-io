@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0node — Concept B · MEV flow</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #050314;
+      --p1: #f472b6;
+      --p2: #818cf8;
+      --p3: #34d399;
+      --text: #fafafa;
+      --muted: #71717a;
+    }
+    body {
+      font-family: -apple-system, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    canvas#flow {
+      position: fixed; inset: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      filter: blur(0.4px);
+    }
+    .scrim {
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(ellipse at 30% 50%, transparent 0%, rgba(5,3,20,0.6) 70%, rgba(5,3,20,0.95) 100%);
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 32px;
+    }
+    nav .logo {
+      font-weight: 800; letter-spacing: -0.02em; font-size: 1.1rem;
+      background: linear-gradient(90deg, var(--p1), var(--p2), var(--p3));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    nav a.back {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      padding: 6px 14px; border: 1px solid #1f1f2f; border-radius: 8px;
+      transition: all 0.2s;
+    }
+    nav a.back:hover { color: var(--p2); border-color: var(--p2); }
+
+    main {
+      position: relative; z-index: 5;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px 56px;
+      max-width: 1280px; margin: 0 auto;
+    }
+    .hero {
+      max-width: 580px;
+    }
+    .label {
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--p2); font-weight: 700;
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .label::before {
+      content: ''; width: 24px; height: 1px;
+      background: var(--p2);
+    }
+    h1 {
+      font-size: clamp(2.6rem, 6.2vw, 5.6rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.98;
+      margin-bottom: 28px;
+    }
+    h1 .flow {
+      background: linear-gradient(90deg, var(--p1), var(--p2) 50%, var(--p3));
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .sub {
+      font-size: 1.1rem; color: #c4b5fd; max-width: 480px;
+      line-height: 1.55; margin-bottom: 36px;
+    }
+    .row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 26px;
+      background: var(--text); color: var(--bg);
+      font-weight: 700; font-size: 0.92rem;
+      border-radius: 8px; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .cta:hover { transform: translateY(-2px); background: var(--p2); }
+    .cta.ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .cta.ghost:hover {
+      border-color: var(--p1);
+      color: var(--p1);
+      background: rgba(244, 114, 182, 0.04);
+    }
+
+    .metrics {
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 32px;
+      max-width: 540px;
+    }
+    .metric { border-left: 2px solid; padding-left: 14px; }
+    .metric:nth-child(1) { border-color: var(--p1); }
+    .metric:nth-child(2) { border-color: var(--p2); }
+    .metric:nth-child(3) { border-color: var(--p3); }
+    .metric .v {
+      font-size: 1.7rem; font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+    .metric .l {
+      font-size: 0.72rem; color: var(--muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+
+    .legend-strip {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+      z-index: 6;
+      font-size: 0.72rem; color: var(--muted);
+      font-family: 'SFMono-Regular', Consolas, monospace;
+      letter-spacing: 0.04em;
+      padding: 8px 16px;
+      background: rgba(5,3,20,0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="flow"></canvas>
+  <div class="scrim"></div>
+
+  <nav>
+    <span class="logo">0node</span>
+    <a href="./index.html" class="back">← All concepts</a>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <div class="label">MEV captured · 100% passed through</div>
+      <h1>Every tip,<br><span class="flow">streamed</span> to stakers.</h1>
+      <p class="sub">We run Jito-Solana BAM. Tips, priority fees, and base rewards flow into your stake every epoch — minus our 5% validator commission.</p>
+      <div class="row">
+        <a class="cta" href="#">Delegate to 0node</a>
+        <a class="cta ghost" href="#">See block production →</a>
+      </div>
+
+      <div class="metrics">
+        <div class="metric">
+          <div class="v">5.79%</div>
+          <div class="l">Total APY</div>
+        </div>
+        <div class="metric">
+          <div class="v">0.11%</div>
+          <div class="l">Jito MEV</div>
+        </div>
+        <div class="metric">
+          <div class="v">99.37%</div>
+          <div class="l">Vote rate</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="legend-strip">curl-noise particle field · 1500 particles · 60fps target</div>
+
+  <script src="./b-flow.js"></script>
+</body>
+</html>

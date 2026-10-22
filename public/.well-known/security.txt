@@ -1,0 +1,12 @@
+# 0node security contact — RFC 9116
+# https://0node.io/.well-known/security.txt
+
+Contact: mailto:support@0node.io
+Expires: 2027-05-29T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://0node.io/.well-known/security.txt
+Policy: https://0node.io/security.html
+
+# Scope: the 0node.io staking interface and validator infrastructure.
+# Out of scope: bugs in Solana, wallet extensions, or third-party RPCs.
+# Please allow a reasonable window for a fix before public disclosure.

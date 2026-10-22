@@ -1,0 +1,19 @@
+version: 2
+updates:
+  # The project is managed by Bun (bun.lock); the npm ecosystem cannot update
+  # that lockfile, which made its update jobs fail.
+  - package-ecosystem: bun
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      production-dependencies:
+        dependency-type: production
+      development-dependencies:
+        dependency-type: development
+    ignore:
+      # web3.js stays on 1.x only for VersionedTransaction (the wallet signing
+      # bridge); 2.x and later are a different API built on @solana/kit.
+      - dependency-name: "@solana/web3.js"
+        update-types: ["version-update:semver-major"]

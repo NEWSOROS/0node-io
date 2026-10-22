@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>0node — Stake SOL on Solana with MEV Rewards via Jito</title>
+  <meta name="description" content="Stake SOL with 0node — a Solana validator running the Jito-Solana BAM client for MEV rewards, with 5% commission and 99.9% uptime on enterprise bare-metal infrastructure.">
+  <meta name="keywords" content="stake Solana, SOL staking, 0node validator, Solana validator, Jito MEV, Jito BAM, bare-metal servers, cryptocurrency staking, passive income">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="0node Team">
+  <!-- Open Graph -->
+  <meta property="og:title" content="0node — Stake SOL on Solana with MEV Rewards via Jito">
+  <meta property="og:description" content="Solana validator with 5% commission, MEV rewards via the Jito-Solana BAM client, and 99.9% uptime on enterprise bare-metal infrastructure.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://0node.io">
+  <meta property="og:image" content="https://0node.io/logo.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="0node — Stake SOL on Solana with MEV Rewards via Jito">
+  <meta name="twitter:description" content="Solana validator with 5% commission, MEV rewards via the Jito-Solana BAM client, and 99.9% uptime on enterprise bare-metal infrastructure.">
+  <meta name="twitter:image" content="https://0node.io/logo.png">
+  <!-- Favicon & PWA -->
+  <link rel="icon" href="/logo.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/logo.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#3b82f6">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://0node.io">
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "0node",
+    "url": "https://0node.io",
+    "description": "0node is a Solana validator offering staking services with 5% commission, MEV rewards via Jito, and high-performance servers.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "support@0node.io",
+      "contactType": "Customer Support"
+    },
+    "sameAs": [
+      "https://discord.com/invite/0nodeio",
+      "https://t.me/ZeroNodeSupport"
+    ]
+  }
+  </script>
+  <!-- Critical CSS — prevents white flash (FOUC) -->
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #050a14;
+      color: #f1f5f9;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    /* Hide all content until styles load */
+    .app-wrapper { opacity: 0; transition: opacity 0.4s ease; }
+    .app-wrapper.ready { opacity: 1; }
+    /* Loading screen */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #050a14;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 20px;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    #loader img { width: 80px; height: 80px; animation: loader-pulse 1.5s ease-in-out infinite; }
+    @keyframes loader-pulse {
+      0%, 100% { opacity: 0.4; transform: scale(0.95); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+    #loader .loader-bar {
+      width: 120px; height: 3px; background: rgba(59, 130, 246, 0.15);
+      border-radius: 3px; overflow: hidden;
+    }
+    #loader .loader-bar::after {
+      content: ''; display: block; width: 40%; height: 100%;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      border-radius: 3px; animation: loader-slide 1s ease-in-out infinite;
+    }
+    @keyframes loader-slide {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(350%); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loader">
+    <img src="/logo.svg" alt="0node" width="80" height="80">
+    <div class="loader-bar"></div>
+  </div>
+
+  <div class="app-wrapper" id="app-wrapper">
+  <!-- Gradient Orbs Background -->
+  <div class="gradient-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="nav" aria-label="Primary">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">
+        <img src="/logo.svg" alt="0node" width="60" height="60">
+      </a>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#stake-now">Stake</a></li>
+        <li><a href="#why-choose">Why Us</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#network">Network</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <!-- Wallet Button in Nav -->
+      <button type="button" id="wallet-btn-nav" class="wallet-btn-nav" aria-label="Connect wallet">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M16 12h.01"/><path d="M2 10h20"/></svg>
+        <span>Connect Wallet</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div id="particles-js" class="particles-canvas"></div>
+    <div class="hero-glow" id="hero-glow"></div>
+    <div class="hero-content">
+      <img src="/logo-hero.svg" alt="0node" class="hero-logo" width="700" height="200">
+      <p class="hero-subtitle">Delegate your SOL to earn high-yield rewards on Solana with cutting-edge validators.</p>
+      <div class="hero-badges">
+        <span class="badge" id="badge-commission">5% Commission</span>
+        <span class="badge">MEV Rewards</span>
+        <span class="badge">99.9% Uptime</span>
+      </div>
+      <a href="#stake-now" class="btn btn-primary btn-glow">
+        <span>Start Staking</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Stake Now Section -->
+  <section id="stake-now" class="section">
+    <div class="container">
+      <h2 class="section-title" data-animate="fade-up">
+        <span class="gradient-text">Stake Your SOL</span>
+      </h2>
+      <p class="section-desc" data-animate="fade-up">Connect your wallet and delegate SOL directly to our validator. No middlemen.</p>
+
+      <!-- Staking Interface -->
+      <div class="staking-panel glass-card" data-animate="scale-in" id="staking-panel">
+        <!-- Network Toggle -->
+        <div class="network-toggle">
+          <button type="button" class="net-btn active" data-network="mainnet-beta">Mainnet</button>
+          <button type="button" class="net-btn" data-network="testnet">Testnet</button>
+          <span class="testnet-badge" id="testnet-badge" style="display:none">⚠ Testnet Mode</span>
+          <button type="button" class="rpc-toggle-btn" id="rpc-toggle-btn" title="Custom RPC">RPC</button>
+        </div>
+        <!-- Custom RPC Panel -->
+        <div id="custom-rpc-panel" class="custom-rpc-panel" style="display:none">
+          <div class="custom-rpc-row">
+            <input type="text" id="custom-rpc-input" class="custom-rpc-input" placeholder="https://your-rpc-endpoint.com">
+            <button type="button" id="rpc-apply-btn" class="btn btn-xs btn-primary">Apply</button>
+            <button type="button" id="rpc-reset-btn" class="btn btn-xs btn-outline">Reset</button>
+          </div>
+          <span id="rpc-status" class="rpc-status rpc-connected"></span>
+          <p class="custom-rpc-warning">
+            ⚠ A custom RPC replaces all default providers and sees every balance/stake query you make from this site. It cannot sign or modify transactions (your wallet handles that), but a hostile endpoint can lie about on-chain state, hide stake accounts, or display fake numbers. Only use an HTTPS endpoint you control or trust.
+          </p>
+        </div>
+
+        <!-- Not Connected State -->
+        <div id="staking-connect" class="staking-state">
+          <div class="staking-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M16 12h.01"/><path d="M2 10h20"/></svg>
+          </div>
+          <h3>Connect Your Wallet</h3>
+          <p>Choose a Solana wallet to get started</p>
+          <div class="wallet-options" id="wallet-options">
+            <button type="button" class="wallet-option" data-wallet="phantom">
+              <img src="/phantom.svg" alt="Phantom" width="36" height="36">
+              <span>Phantom</span>
+            </button>
+            <button type="button" class="wallet-option" data-wallet="solflare">
+              <img src="/solflare.svg" alt="Solflare" width="36" height="36">
+              <span>Solflare</span>
+            </button>
+            <button type="button" class="wallet-option" data-wallet="backpack">
+              <img src="/backpack.svg" alt="Backpack" width="36" height="36">
+              <span>Backpack</span>
+            </button>
+          </div>
+          <details class="wallet-more">
+            <summary>More wallets</summary>
+            <div class="wallet-options" id="wallet-options-more">
+              <button type="button" class="wallet-option" data-wallet="trustwallet">
+                <img src="/trustwallet.svg" alt="Trust Wallet" width="36" height="36">
+                <span>Trust Wallet</span>
+              </button>
+            </div>
+          </details>
+        </div>
+
+        <!-- Connected State -->
+        <div id="staking-form" class="staking-state" style="display:none">
+          <div class="staking-header">
+            <div class="wallet-info">
+              <div class="wallet-status">
+                <img id="wallet-icon" src="/logo.svg" alt="" width="24" height="24">
+                <span class="status-dot"></span>
+                <span id="wallet-address">Loading...</span>
+              </div>
+              <span class="wallet-balance" id="wallet-balance">0 SOL</span>
+            </div>
+            <button type="button" id="disconnect-btn" class="btn btn-sm btn-outline">Disconnect</button>
+          </div>
+          <div class="staking-body">
+            <label for="stake-amount" class="staking-label">Amount to Stake</label>
+            <div class="staking-input-group">
+              <input type="number" id="stake-amount" class="staking-input" placeholder="0.00" min="1" step="0.01">
+              <span class="staking-currency">SOL</span>
+              <button type="button" id="max-btn" class="btn btn-xs">MAX</button>
+            </div>
+            <div class="staking-info">
+              <div class="info-row">
+                <span>Validator</span>
+                <span class="info-value" id="validator-commission">0node</span>
+              </div>
+              <div class="info-row">
+                <span>Total APY</span>
+                <span class="info-value accent" id="staking-panel-apy">Loading...</span>
+              </div>
+              <div class="info-row">
+                <span>Network Fee</span>
+                <span class="info-value">~0.000005 SOL</span>
+              </div>
+              <div class="info-row">
+                <span>Minimum Stake</span>
+                <span class="info-value" id="minimum-stake-value">Loading...</span>
+              </div>
+            </div>
+            <button type="button" id="stake-btn" class="btn btn-primary btn-glow btn-full" disabled>
+              <span>Stake SOL</span>
+            </button>
+            <p id="stake-status" class="stake-status"></p>
+          </div>
+
+          <!-- My Stakes Section -->
+          <div id="my-stakes" class="my-stakes-section" style="display:none">
+            <div class="my-stakes-header">
+              <h4>My Stakes</h4>
+              <button type="button" id="refresh-stakes-btn" class="btn btn-xs btn-outline">↻ Refresh</button>
+            </div>
+            <div id="stakes-list" class="stakes-list">
+              <p class="stakes-loading">Loading stakes...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Section -->
+  <section id="why-choose" class="section">
+    <div class="container">
+      <h2 class="section-title" data-animate="fade-up">
+        <span class="gradient-text">Why Choose 0node?</span>
+      </h2>
+      <div class="cards-grid">
+        <div class="glass-card card-feature" data-animate="fade-up" data-delay="100">
+          <div class="card-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+          </div>
+          <h3>MEV Rewards with Jito</h3>
+          <p>We capture MEV rewards via Jito and pass them through to stakers, minus our 5% validator commission.</p>
+        </div>
+        <div class="glass-card card-feature" data-animate="fade-up" data-delay="200">
+          <div class="card-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <h3>Jito BAM Client</h3>
+          <p>We run the Jito-Solana BAM client with TEE-secured block assembly for optimized transaction processing and maximum MEV extraction.</p>
+        </div>
+        <div class="glass-card card-feature" data-animate="fade-up" data-delay="300">
+          <div class="card-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3>High-Performance Servers</h3>
+          <p>Our bare-metal servers ensure low latency and 99.9% uptime for reliable staking.</p>
+        </div>
+        <div class="glass-card card-feature" data-animate="fade-up" data-delay="400">
+          <div class="card-icon-wrap">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Community Support</h3>
+          <p>Join our community on Discord and Telegram for support and updates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="section">
+    <div class="container">
+      <h2 class="section-title" data-animate="fade-up">
+        <span class="gradient-text">How to Start Staking</span>
+      </h2>
+      <div class="timeline">
+        <div class="timeline-line" id="timeline-line"></div>
+        <div class="timeline-step" data-animate="fade-up" data-delay="100">
+          <div class="step-number">1</div>
+          <div class="step-content glass-card">
+            <h3>Choose Solana</h3>
+            <p>Stake on Solana for high APY, fast finality, and low network transaction fees.</p>
+          </div>
+        </div>
+        <div class="timeline-step" data-animate="fade-up" data-delay="200">
+          <div class="step-number">2</div>
+          <div class="step-content glass-card">
+            <h3>Connect a Wallet</h3>
+            <p>Use Phantom, Solflare, or Backpack to connect directly on our site.</p>
+          </div>
+        </div>
+        <div class="timeline-step" data-animate="fade-up" data-delay="300">
+          <div class="step-number">3</div>
+          <div class="step-content glass-card">
+            <h3>Delegate Your SOL</h3>
+            <p>Enter your SOL amount and confirm the delegation to 0node validator.</p>
+          </div>
+        </div>
+        <div class="timeline-step" data-animate="fade-up" data-delay="400">
+          <div class="step-number">4</div>
+          <div class="step-content glass-card">
+            <h3>Earn Rewards</h3>
+            <p>Track your staking rewards in real-time. Rewards accrue every epoch (~1 day).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Validator Stats (Real-time from StakeWiz API) -->
+  <section id="network" class="section">
+    <div class="container">
+      <h2 class="section-title" data-animate="fade-up">
+        <span class="gradient-text">Validator Performance</span>
+      </h2>
+      <p class="section-desc" data-animate="fade-up">Real-time validator metrics</p>
+
+      <!-- Primary Stats — large cards -->
+      <div class="stats-grid" data-animate="fade-up">
+        <div class="glass-card stat-card stat-highlight">
+          <span class="stat-value" id="stat-total-apy">—</span>
+          <span class="stat-suffix">%</span>
+          <span class="stat-label">Total APY</span>
+          <span class="stat-desc">Staking + MEV combined</span>
+        </div>
+        <div class="glass-card stat-card">
+          <span class="stat-value" id="stat-staking-apy">—</span>
+          <span class="stat-suffix">%</span>
+          <span class="stat-label">Staking APY</span>
+          <span class="stat-desc">Base staking rewards</span>
+        </div>
+        <div class="glass-card stat-card">
+          <span class="stat-value" id="stat-jito-apy">—</span>
+          <span class="stat-suffix">%</span>
+          <span class="stat-label">Jito MEV APY</span>
+          <span class="stat-desc">MEV rewards via Jito</span>
+        </div>
+        <div class="glass-card stat-card">
+          <span class="stat-value" id="stat-commission">—</span>
+          <span class="stat-suffix">%</span>
+          <span class="stat-label">Commission</span>
+          <span class="stat-desc">Validator fee</span>
+        </div>
+      </div>
+
+      <!-- Secondary Stats — smaller grid -->
+      <div class="stats-grid stats-secondary" data-animate="fade-up">
+        <div class="glass-card stat-card stat-sm">
+          <span class="stat-value" id="stat-uptime">—</span>
+          <span class="stat-suffix">%</span>
+          <span class="stat-label">Uptime</span>
+        </div>
+        <div class="glass-card stat-card stat-sm">
+          <span class="stat-value" id="stat-vote-success">—</span>
+          <span class="stat-suffix">%</span>
+          <span class="stat-label">Voting Rate</span>
+        </div>
+        <div class="glass-card stat-card stat-sm">
+          <span class="stat-value" id="stat-skip-rate">—</span>
+          <span class="stat-suffix">%</span>
+          <span class="stat-label">Skip Rate</span>
+        </div>
+        <div class="glass-card stat-card stat-sm">
+          <span class="stat-value" id="stat-stake-weight">—</span>
+          <span class="stat-suffix">%</span>
+          <span class="stat-label">Stake Weight</span>
+        </div>
+      </div>
+
+      <p class="stats-updated" id="stats-updated" data-animate="fade-up"></p>
+
+      <div class="network-info glass-card" data-animate="fade-up">
+        <p>Staking is non-custodial — your SOL never leaves your wallet. Delegation is reversible at any time, and we have no access to your funds. Rewards accrue automatically every epoch (~1 day) and compound with your stake.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title" data-animate="fade-up">
+        <span class="gradient-text">Get In Touch</span>
+      </h2>
+      <div class="contact-grid">
+        <a href="mailto:support@0node.io" class="glass-card contact-card" data-animate="fade-up" data-delay="100">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <span>support@0node.io</span>
+        </a>
+        <a href="https://discord.com/invite/0nodeio" target="_blank" rel="noopener" class="glass-card contact-card" data-animate="fade-up" data-delay="200">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/><circle cx="12" cy="12" r="10"/></svg>
+          <span>Discord: 0nodeio</span>
+        </a>
+        <a href="https://t.me/ZeroNodeSupport" target="_blank" rel="noopener" class="glass-card contact-card" data-animate="fade-up" data-delay="300">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></svg>
+          <span>Telegram: @ZeroNodeSupport</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <img src="/logo.svg" alt="0node" width="40" height="40">
+      <p>&copy; 2026 0node. All rights reserved.</p>
+      <nav class="footer-legal" aria-label="Legal">
+        <a href="/security.html">Security</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/imprint.html">Imprint</a>
+      </nav>
+    </div>
+  </footer>
+  </div><!-- /.app-wrapper -->
+
+  <!-- App Entry -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

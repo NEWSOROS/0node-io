@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.vite/
+*.local
+.DS_Store
+Thumbs.db
+.env
+.env.*
+*.bak
+.claude/settings.local.json

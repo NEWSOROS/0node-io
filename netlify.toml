@@ -1,0 +1,62 @@
+[build]
+  command = "bun install --frozen-lockfile && bun run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  BUN_VERSION = "1.4.3"
+
+# No SPA catch-all: the site has no client-side routes, so unknown paths get
+# a real 404 (public/404.html) instead of a soft-404 copy of the home page.
+# RFC 9116's legacy location points at the canonical security.txt.
+[[redirects]]
+  from = "/security.txt"
+  to = "/.well-known/security.txt"
+  status = 301
+
+# Security headers for all paths. Antiphishing scanners (Blowfish, Blockaid,
+# Netcraft, etc.) check for their presence as a trust signal for dApps.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # CSP:
+    #   - script-src has a sha256 hash allowing our one inline <script>
+    #     (JSON-LD structured data in <head>). No 'unsafe-inline' — if
+    #     the JSON-LD changes, recompute the hash.
+    #   - style-src 'unsafe-inline' allows the critical-CSS <style> in <head>
+    #   - img-src 'self' data: only — at runtime we load no cross-origin
+    #     images (validator icons are restricted to our own validator,
+    #     which is same-origin; wallet icons are local SVGs). Dropped the
+    #     blanket https: to shrink the surface. Re-add a specific host if
+    #     we ever show third-party logos again.
+    #   - connect-src https: wss: leaves room for user-provided custom RPCs;
+    #     still blocks http://, data:, javascript:
+    #   - frame-ancestors 'none' prevents clickjacking via iframe embed
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'sha256-zEPmxp0xTC+xqjIP/ZcjF5R5zLFJcipJv3v3u3ZLCps='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https: wss:; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), accelerometer=(), gyroscope=(), magnetometer=()"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    Cross-Origin-Opener-Policy = "same-origin"
+    # Blocks legacy Adobe (Flash/PDF) cross-domain policy probing. No downside.
+    X-Permitted-Cross-Domain-Policies = "none"
+
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/assets/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    # Our code should never be embeddable/readable by another origin.
+    # (Images deliberately omit this so aggregators can hotlink our logo.)
+    Cross-Origin-Resource-Policy = "same-origin"
+
+[[headers]]
+  for = "/assets/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Cross-Origin-Resource-Policy = "same-origin"
